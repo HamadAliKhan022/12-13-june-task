@@ -6,7 +6,8 @@ import Sidebar from "./components/Sidebar";
 import Dashboard from "./pages/Dashboard";
 import AddStudent from "./pages/AddStudent";
 import StudentList from "./pages/StudentList";
-
+import AddFaculty from "./pages/AddFaculty";
+import FacultyList from "./pages/Faculty";
 import { getStudents, removeStudent } from "./services/studentService";
 
 export default function App() {
@@ -53,19 +54,14 @@ export default function App() {
         }}
       >
         <Navbar />
-
-        <div
-          style={{
-            padding: 30,
-          }}
-        >
+        <div style={{ padding: 30 }}>
           {page === "dashboard" && <Dashboard students={students} />}
 
           {page === "add" && (
             <AddStudent
               editing={editing}
-              clearEdit={clearEdit}
               refresh={load}
+              clearEdit={clearEdit}
             />
           )}
 
@@ -77,6 +73,10 @@ export default function App() {
               deleteStudent={deleteOne}
             />
           )}
+
+          {page === "addFaculty" && <AddFaculty />}
+
+          {page === "faculty" && <Faculty />}
         </div>
       </div>
     </div>

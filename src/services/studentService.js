@@ -1,76 +1,33 @@
-import {
-ref,
-push,
-get,
-update,
-remove
-} from "firebase/database";
+import { ref, push, get, update, remove } from "firebase/database";
 
-import { db } from "../firebase/firebase";
+import { realtimeDB } from "../firebase/firebase";
 
-export async function addStudent(data){
-
-await push(
-ref(db,"students"),
-data
-);
-
+export async function addStudent(data) {
+  await push(ref(realtimeDB, "students"), data);
 }
 
-export async function getStudents(){
+export async function getStudents() {
+  const snapshot = await get(ref(realtimeDB, "students"));
 
-const snapshot =
-await get(
-ref(
-db,
-"students"
-)
-);
+  if (!snapshot.exists()) return [];
 
-if(!snapshot.exists())
-return [];
+  const data = snapshot.val();
 
-const data =
-snapshot.val();
+  return Object.entries(data).map(([id, val]) => ({
+    id,
 
-return Object.entries(
-data
-).map(
-([id,value])=>({
-
-id,
-
-...value
-
-})
-);
-
+    ...val,
+  }));
 }
 
-export async function updateStudent(
-id,
-data
-){
+export async function updateStudent(id, data) {
+  await update(
+    ref(realtimeDB, `students/${id}`),
 
-await update(
-ref(
-db,
-`students/${id}`
-),
-data
-);
-
+    data,
+  );
 }
 
-export async function removeStudent(
-id
-){
-
-await remove(
-ref(
-db,
-`students/${id}`
-)
-);
-
+export async function removeStudent(id) {
+  await remove(ref(realtimeDB, `students/${id}`));
 }

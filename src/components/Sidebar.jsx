@@ -24,6 +24,14 @@ export default function Sidebar({ setPage }) {
         <ListItemButton onClick={() => setPage("list")}>
           <ListItemText primary="Students" />
         </ListItemButton>
+
+        <ListItemButton onClick={() => setPage("addFaculty")}>
+          <ListItemText primary="Add Faculty" />
+        </ListItemButton>
+
+        <ListItemButton onClick={() => setPage("faculty")}>
+          <ListItemText primary="Faculty" />
+        </ListItemButton>
       </List>
     </Drawer>
   );
